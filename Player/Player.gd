@@ -13,11 +13,13 @@ var velocity := Vector2.ZERO
 var roll_dir := Vector2.LEFT
 onready var animationTree = $AnimationTree
 onready var animationState = $AnimationTree.get("parameters/playback")
+onready var swordDirection = $HitboxPivot/SwordHitbox
 
 var state = MOVE
 
 func _ready():
 	animationTree.active = true
+	swordDirection.hit_direction = Vector2.LEFT
 
 func _process(_delta):
 	match state:
@@ -37,6 +39,7 @@ func move_state(_delta):
 	if dir != Vector2.ZERO:
 		velocity = velocity.move_toward(dir*MAX_SPEED,ACCELERATION)
 		roll_dir = dir
+		swordDirection.hit_direction = dir
 #		print(animationTree.get("parameters/Idle/blend_position"))
 		animationState.travel("Run")
 		animationTree.set("parameters/Roll/blend_position",dir)
@@ -52,8 +55,7 @@ func move_state(_delta):
 	if Input.is_action_just_pressed("attack") :
 		state = ATTACK
 		velocity = Vector2.ZERO
-	
-	if Input.is_action_just_pressed("roll"):
+	elif Input.is_action_just_pressed("roll"):
 		state = ROLL
 		velocity = (velocity + roll_dir * MAX_SPEED * ROLL_FACTOR)/2
 	
