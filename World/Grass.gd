@@ -1,17 +1,9 @@
 extends Node2D
 
-var GrassEffect : PackedScene
-var bushes : Node2D
-
-func _process(_delta):
-	if Input.is_action_just_pressed("attack"):
-		pass
-
-func _on_AnimatedSprite_animation_finished():
-	queue_free()
-
+var GrassEffect = preload("res://Effects/GrassDestroyedEffect.tscn")
 
 func _on_Hurtbox_area_entered(_area):
-	$AnimatedSprite.visible = true
-	$AnimatedSprite.play("destroy")
-	$Sprite.visible = false
+	var grassEffect = GrassEffect.instance()
+	grassEffect.position = position
+	get_parent().add_child(grassEffect)
+	queue_free()

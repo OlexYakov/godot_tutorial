@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 const KNOCKBACK_WEIGHT = 4
 
+onready var stats = $Stats
+
 var knockback_dir := Vector2.ZERO
 
 func _process(delta):
@@ -11,4 +13,7 @@ func _process(delta):
 	
 func _on_Hurtbox_area_entered(area):
 	knockback_dir = area.hit_direction * 100
-	
+	stats.health -= area.damage
+
+func _on_Stats_health_depleted():
+	queue_free()
