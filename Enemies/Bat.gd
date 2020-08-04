@@ -24,6 +24,8 @@ func _process(delta):
 		states.IDLE:
 			if playerDetector.player_in_range():
 				state = states.CHASE
+			velocity = velocity.move_toward(Vector2.ZERO,FRICTION)
+			velocity = move_and_slide(velocity)
 		states.WANDER:
 			pass
 		states.CHASE:

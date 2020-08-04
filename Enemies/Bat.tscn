@@ -51,12 +51,13 @@ collision_mask = 5
 script = ExtResource( 3 )
 ACCELERATION = 5
 MAX_VELOCITY = 50
+FRICTION = 1
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 6 )
 animation = "Fly"
-frame = 4
+frame = 1
 playing = true
 
 [node name="Shadow" type="Sprite" parent="."]
@@ -78,6 +79,7 @@ shape = SubResource( 8 )
 max_health = 3
 
 [node name="PlayerDetectionArea" parent="." instance=ExtResource( 6 )]
+modulate = Color( 1, 1, 1, 0.247059 )
 
 [node name="CollisionShape2D" parent="PlayerDetectionArea" index="0"]
 shape = SubResource( 9 )
