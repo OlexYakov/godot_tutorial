@@ -14,12 +14,15 @@ var roll_dir := Vector2.DOWN
 onready var animationTree = $AnimationTree
 onready var animationState = $AnimationTree.get("parameters/playback")
 onready var swordDirection = $HitboxPivot/SwordHitbox
-
+onready var stats = PlayerStats
 var state = MOVE
 
 func _ready():
 	animationTree.active = true
 	swordDirection.hit_direction = Vector2.LEFT
+	stats.connect("health_depleted",self,"_on_health_depleted")
+	stats.max_health = 10
+	stats.health = 10
 
 func _process(_delta):
 	match state:
@@ -76,3 +79,9 @@ func end_attack_state():
 	
 func end_roll_state():
 	state = MOVE
+
+func _on_Hurtbox_area_entered(area):
+	stats.health -= area.damage
+
+func _on_health_depleted():
+	queue_free()

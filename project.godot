@@ -19,6 +19,10 @@ config/name="action rpg tutorial"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerStats="*res://Player/PlayerStats.tscn"
+
 [display]
 
 window/size/width=380
@@ -96,6 +100,8 @@ attack={
 2d_physics/layer_4="PlayerHit"
 2d_physics/layer_5="EnemyHit"
 2d_physics/layer_6="Breakable"
+2d_physics/layer_7="PlayerHurt"
+2d_physics/layer_8="EnemyHurt"
 
 [rendering]
 

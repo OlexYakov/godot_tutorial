@@ -1,9 +1,10 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Player/Player.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Hurtboxes + Hitboxes/Hitbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Player/SwordHitbox.gd" type="Script" id=4]
+[ext_resource path="res://Hurtboxes + Hitboxes/Hurtbox.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.1516
@@ -605,6 +606,10 @@ graph_offset = Vector2( 0, -77.5701 )
 radius = 8.0
 height = 16.0
 
+[sub_resource type="CapsuleShape2D" id=48]
+radius = 4.0
+height = 8.0
+
 [node name="KinematicBody2D" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
@@ -660,13 +665,25 @@ rotation = 3.14159
 
 [node name="SwordHitbox" parent="HitboxPivot" instance=ExtResource( 3 )]
 collision_layer = 8
-collision_mask = 36
+collision_mask = 160
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="HitboxPivot/SwordHitbox" index="0"]
 position = Vector2( 16, 6.99382e-07 )
 shape = SubResource( 47 )
 disabled = true
+
+[node name="Hurtbox" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, -8 )
+collision_layer = 64
+collision_mask = 0
+iframeTime = 10.0
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource( 48 )
 [connection signal="area_entered" from="HitboxPivot/SwordHitbox" to="HitboxPivot/SwordHitbox" method="_on_SwordHitbox_area_entered"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
 [editable path="HitboxPivot/SwordHitbox"]
+
+[editable path="Hurtbox"]
