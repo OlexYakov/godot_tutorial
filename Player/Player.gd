@@ -10,7 +10,7 @@ enum {
 }
 
 var velocity := Vector2.ZERO
-var roll_dir := Vector2.LEFT
+var roll_dir := Vector2.DOWN
 onready var animationTree = $AnimationTree
 onready var animationState = $AnimationTree.get("parameters/playback")
 onready var swordDirection = $HitboxPivot/SwordHitbox
@@ -54,7 +54,7 @@ func move_state(_delta):
 	
 	if Input.is_action_just_pressed("attack") :
 		state = ATTACK
-		velocity = Vector2.ZERO
+		velocity /= 20
 	elif Input.is_action_just_pressed("roll"):
 		state = ROLL
 		velocity = (velocity + roll_dir * MAX_SPEED * ROLL_FACTOR)/2
@@ -62,6 +62,7 @@ func move_state(_delta):
 
 func attack_state(_delta):
 	animationState.travel("Attack")
+	move()
 	
 func roll_state(_delta):
 	animationState.travel("Roll")

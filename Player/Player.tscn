@@ -649,10 +649,10 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 root_motion_track = NodePath(".:frame")
 parameters/playback = SubResource( 46 )
-parameters/Attack/blend_position = Vector2( -0.355694, 0.0853448 )
-parameters/Idle/blend_position = Vector2( 0, 1.1 )
-parameters/Roll/blend_position = Vector2( 0, -0.976724 )
-parameters/Run/blend_position = Vector2( 0, 0 )
+parameters/Attack/blend_position = Vector2( 0, 1 )
+parameters/Idle/blend_position = Vector2( 0, 1 )
+parameters/Roll/blend_position = Vector2( 0, 1 )
+parameters/Run/blend_position = Vector2( 0, 1 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, -8 )
@@ -667,5 +667,6 @@ script = ExtResource( 4 )
 position = Vector2( 16, 6.99382e-07 )
 shape = SubResource( 47 )
 disabled = true
+[connection signal="area_entered" from="HitboxPivot/SwordHitbox" to="HitboxPivot/SwordHitbox" method="_on_SwordHitbox_area_entered"]
 
 [editable path="HitboxPivot/SwordHitbox"]

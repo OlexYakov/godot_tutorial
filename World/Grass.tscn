@@ -4,7 +4,7 @@
 [ext_resource path="res://Hurtboxes + Hitboxes/Hurtbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World/Grass.gd" type="Script" id=4]
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 7 )
 
 [node name="Grass" type="Node2D"]
@@ -16,9 +16,10 @@ texture = ExtResource( 2 )
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
 collision_layer = 32
 collision_mask = 0
+hitEffectEnabled = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource( 7 )
+shape = SubResource( 1 )
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
 [editable path="Hurtbox"]
