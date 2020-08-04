@@ -1,14 +1,43 @@
 extends KinematicBody2D
 
-const KNOCKBACK_WEIGHT = 4
+
+export var ACCELERATION = 2
+export var MAX_VELOCITY = 10
+export var FRICTION = 5
+export var KNOCKBACK_WEIGHT = 4
+
+enum states {
+	IDLE, WANDER, CHASE
+}
 
 onready var stats = $Stats
+onready var playerDetector = $PlayerDetectionArea
+onready var sprite = $AnimatedSprite
 
+var state = states.IDLE
 var knockback_dir := Vector2.ZERO
+var velocity = Vector2.ZERO
 var DeathEffect = preload("res://Effects/DeathEffect.tscn")
 
 func _process(delta):
+	match state:
+		states.IDLE:
+			if playerDetector.player_in_range():
+				state = states.CHASE
+		states.WANDER:
+			pass
+		states.CHASE:
+			if playerDetector.player_in_range():
+				var player = playerDetector.player
+				var dir = (player.global_position - global_position).normalized()
+				velocity = velocity.move_toward(dir*MAX_VELOCITY,ACCELERATION)
+				velocity = move_and_slide(velocity)
+				sprite.flip_h = dir.x < 0
+			else:
+				state = states.IDLE
+			
 	if knockback_dir != Vector2.ZERO:
+		velocity = Vector2.ZERO
 		knockback_dir = move_and_slide(knockback_dir)
 		knockback_dir = knockback_dir.move_toward(Vector2.ZERO,KNOCKBACK_WEIGHT)
 	
