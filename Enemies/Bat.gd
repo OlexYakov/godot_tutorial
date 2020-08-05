@@ -47,7 +47,10 @@ func _on_Hurtbox_area_entered(area):
 	knockback_dir = area.hit_direction * 100
 	stats.health -= area.damage
 
+signal died
+
 func _on_Stats_health_depleted():
+	emit_signal("died")
 	queue_free()
 	var deathEffect = DeathEffect.instance()
 	deathEffect.position = position

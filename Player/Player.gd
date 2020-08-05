@@ -21,8 +21,6 @@ func _ready():
 	animationTree.active = true
 	swordDirection.hit_direction = Vector2.LEFT
 	stats.connect("health_depleted",self,"_on_health_depleted")
-	stats.max_health = 10
-	stats.health = 10
 
 func _process(_delta):
 	match state:
