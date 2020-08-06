@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Pickups/Pickup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Pickups/HeartPickup.gd" type="Script" id=2]
+[ext_resource path="res://UI/HeartUIFull.png" type="Texture" id=3]
+
+[node name="Sprite" instance=ExtResource( 1 )]
+texture = ExtResource( 3 )
+script = ExtResource( 2 )
