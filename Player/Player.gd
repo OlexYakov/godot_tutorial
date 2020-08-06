@@ -5,6 +5,7 @@ const ACCELERATION = 10
 const FRICTION = 10
 const ROLL_FACTOR = 1.5
 
+
 enum {
 	MOVE,ATTACK,ROLL
 }
@@ -16,6 +17,10 @@ onready var animationState = $AnimationTree.get("parameters/playback")
 onready var swordDirection = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
 onready var stats = PlayerStats
+onready var cameraRemoteTransform = $RemoteTransform2D
+
+export(NodePath) onready var camera_node_path
+
 var state = MOVE
 
 func _ready():
@@ -23,6 +28,7 @@ func _ready():
 	swordDirection.hit_direction = Vector2.LEFT
 	stats.connect("health_depleted",self,"_on_health_depleted")
 	hurtbox.connect("damage_taken",self,"damage_taken_handler")
+	cameraRemoteTransform.remote_path = get_node(camera_node_path).get_path()
 
 func _process(_delta):
 	match state:

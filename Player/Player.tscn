@@ -619,6 +619,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -10 )
 texture = ExtResource( 1 )
