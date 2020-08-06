@@ -558,7 +558,7 @@ position = Vector2( 272, 152 )
 
 [node name="YSort" type="YSort" parent="Entities"]
 script = ExtResource( 9 )
-bats_to_spawn = 10
+bats_to_spawn = 11
 
 [node name="Bat" parent="Entities/YSort" instance=ExtResource( 7 )]
 position = Vector2( 120, 136 )
@@ -612,7 +612,7 @@ MAX_VELOCITY = 30
 
 [node name="AnimatedSprite" parent="Entities/YSort/BatBoss" index="0"]
 position = Vector2( 1.90735e-06, -8.26023 )
-frame = 1
+frame = 2
 
 [node name="Hurtbox" parent="Entities/YSort/BatBoss" index="3"]
 position = Vector2( 0, 1.5102 )
