@@ -6,6 +6,8 @@ export var MAX_VELOCITY = 10
 export var FRICTION = 5
 export var KNOCKBACK_WEIGHT = 4
 
+export(int) var repulsion_strength = 100
+
 enum states {
 	IDLE, WANDER, CHASE
 }
@@ -13,6 +15,7 @@ enum states {
 onready var stats = $Stats
 onready var playerDetector = $PlayerDetectionArea
 onready var sprite = $AnimatedSprite
+onready var softColisionArea = $SoftColisionArea
 
 var state = states.IDLE
 var knockback_dir := Vector2.ZERO
@@ -25,7 +28,6 @@ func _process(delta):
 			if playerDetector.player_in_range():
 				state = states.CHASE
 			velocity = velocity.move_toward(Vector2.ZERO,FRICTION)
-			velocity = move_and_slide(velocity)
 		states.WANDER:
 			pass
 		states.CHASE:
@@ -33,11 +35,15 @@ func _process(delta):
 				var player = playerDetector.player
 				var dir = (player.global_position - global_position).normalized()
 				velocity = velocity.move_toward(dir*MAX_VELOCITY,ACCELERATION)
-				velocity = move_and_slide(velocity)
-				sprite.flip_h = dir.x < 0
 			else:
 				state = states.IDLE
-			
+			sprite.flip_h = velocity.x < 0
+	
+	if softColisionArea.is_coliding():
+		velocity += softColisionArea.get_softcolision_vect() * delta * repulsion_strength
+	
+	velocity = move_and_slide(velocity)
+	
 	if knockback_dir != Vector2.ZERO:
 		velocity = Vector2.ZERO
 		knockback_dir = move_and_slide(knockback_dir)

@@ -9,6 +9,8 @@ export(effects) var effect = effects.DEFAULT
 export(Vector2) var effectOffset = Vector2.ZERO
 export(float) var iframeTime = -1
 
+var invincible = false
+
 var getResource = {
 	effects.DEFAULT : DefaultHitEffect
 }
@@ -19,11 +21,15 @@ func create_hurt_effect():
 	get_tree().current_scene.add_child(e)
 
 func _on_Hurtbox_area_entered(area):
+	if invincible : return
+	PlayerStats.health -= area.damage
 	if hitEffectEnabled:
 		create_hurt_effect()
 	if iframeTime > 0 :
+		invincible = true
 		set_deferred("monitoring",false)
 		iframeTimer.start(iframeTime)
 		
 func _on_IFrameTimer_timeout():
 	monitoring = true
+	invincible = false

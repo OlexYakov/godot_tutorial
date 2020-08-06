@@ -77,9 +77,6 @@ func end_attack_state():
 	
 func end_roll_state():
 	state = MOVE
-
-func _on_Hurtbox_area_entered(area):
-	stats.health -= area.damage
-
+	
 func _on_health_depleted():
 	queue_free()

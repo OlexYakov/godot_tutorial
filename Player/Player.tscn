@@ -683,7 +683,6 @@ iframeTime = 1.0
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource( 48 )
 [connection signal="area_entered" from="HitboxPivot/SwordHitbox" to="HitboxPivot/SwordHitbox" method="_on_SwordHitbox_area_entered"]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
 [editable path="HitboxPivot/SwordHitbox"]
 

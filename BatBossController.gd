@@ -1,5 +1,7 @@
 extends YSort
 
+export(int) var bats_to_spawn = 3
+
 func _ready():
 	var bats = get_children()
 	for bat in bats:
@@ -8,7 +10,7 @@ func _ready():
 var deaths = 0
 func bat_died_handler():
 	deaths += 1
-	if deaths >= 3:
+	if deaths >= bats_to_spawn:
 		var bat_boss = get_node("BatBoss")
 		if bat_boss != null:
 			var pda = bat_boss.get_node("PlayerDetectionArea")
