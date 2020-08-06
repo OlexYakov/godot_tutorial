@@ -20,9 +20,11 @@ func create_hurt_effect():
 	e.global_position = global_position+effectOffset
 	get_tree().current_scene.add_child(e)
 
+signal damage_taken
+
 func _on_Hurtbox_area_entered(area):
 	if invincible : return
-	PlayerStats.health -= area.damage
+	emit_signal("damage_taken",area.damage)
 	if hitEffectEnabled:
 		create_hurt_effect()
 	if iframeTime > 0 :

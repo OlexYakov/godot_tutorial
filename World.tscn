@@ -612,7 +612,7 @@ MAX_VELOCITY = 30
 
 [node name="AnimatedSprite" parent="Entities/YSort/BatBoss" index="0"]
 position = Vector2( 1.90735e-06, -8.26023 )
-frame = 2
+frame = 4
 
 [node name="Hurtbox" parent="Entities/YSort/BatBoss" index="3"]
 position = Vector2( 0, 1.5102 )
@@ -631,7 +631,6 @@ damage = 3
 
 [node name="Sprite2" parent="Entities/Pickups" instance=ExtResource( 10 )]
 position = Vector2( 355.353, 16.7735 )
-scale = Vector2( 1, 1.04545 )
 
 [node name="PlayerUI" parent="." instance=ExtResource( 8 )]
 margin_left = 4.36536

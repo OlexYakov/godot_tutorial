@@ -42,7 +42,7 @@ radius = 4.0
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 4.0
-height = 16.0
+height = 8.0
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 80.0
@@ -66,7 +66,7 @@ repulsion_strength = 400
 position = Vector2( 0, -16 )
 frames = SubResource( 6 )
 animation = "Fly"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Shadow" type="Sprite" parent="."]
@@ -77,13 +77,12 @@ visible = false
 shape = SubResource( 7 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 4 )]
-visible = false
 collision_layer = 2147483776
 collision_mask = 0
 effectOffset = Vector2( 0, -20 )
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2( 0, -12 )
+position = Vector2( 0, -16 )
 shape = SubResource( 8 )
 
 [node name="Stats" parent="." instance=ExtResource( 5 )]
