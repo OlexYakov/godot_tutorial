@@ -16,27 +16,40 @@ onready var stats = $Stats
 onready var playerDetector = $PlayerDetectionArea
 onready var sprite = $AnimatedSprite
 onready var softColisionArea = $SoftColisionArea
+onready var movementController = $MovementController
 
-var state = states.IDLE
+var state = states.IDLE setget set_state
 var knockback_dir := Vector2.ZERO
 var velocity = Vector2.ZERO
 var DeathEffect = preload("res://Effects/DeathEffect.tscn")
+
+func _ready():
+	movementController.connect("movestate_timeout",self,"random_idle_wander_state_switch")
 
 func _process(delta):
 	match state:
 		states.IDLE:
 			if playerDetector.player_in_range():
-				state = states.CHASE
-			velocity = velocity.move_toward(Vector2.ZERO,FRICTION)
+				set_state(states.CHASE)
+			else:
+				velocity = velocity.move_toward(Vector2.ZERO,FRICTION)
 		states.WANDER:
-			pass
+			if playerDetector.player_in_range():
+				set_state(states.CHASE)
+			else:
+				var wander_pos = movementController.get_wander_position()
+				var dir = global_position.direction_to(wander_pos)
+				velocity = velocity.move_toward(dir*MAX_VELOCITY/2,ACCELERATION)
+				
+				if global_position.distance_to(wander_pos) < velocity.length()*delta:
+					set_state(states.IDLE)
 		states.CHASE:
 			if playerDetector.player_in_range():
 				var player = playerDetector.player
-				var dir = (player.global_position - global_position).normalized()
+				var dir = global_position.direction_to(player.global_position)
 				velocity = velocity.move_toward(dir*MAX_VELOCITY,ACCELERATION)
 			else:
-				state = states.IDLE
+				set_state(states.WANDER)
 			sprite.flip_h = velocity.x < 0
 	
 	if softColisionArea.is_coliding():
@@ -48,6 +61,24 @@ func _process(delta):
 		velocity = Vector2.ZERO
 		knockback_dir = move_and_slide(knockback_dir)
 		knockback_dir = knockback_dir.move_toward(Vector2.ZERO,KNOCKBACK_WEIGHT)
+
+func set_state(value):
+	state = value
+	match state:
+		states.CHASE:
+			pass
+		states.WANDER:
+			movementController.set_movestate_timeout(rand_range(1,6))
+		states.IDLE:
+			movementController.set_movestate_timeout(rand_range(1,1))
+		
+func random_idle_wander_state_switch():
+	if state == states.CHASE : return
+	set_state(chose_random_state([states.IDLE,states.WANDER]))
+
+func chose_random_state(state_list : Array):
+	var i = randi()%state_list.size()
+	return state_list[i]
 	
 func _on_Hurtbox_area_entered(area):
 	knockback_dir = area.hit_direction * 100
