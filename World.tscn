@@ -490,7 +490,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [node name="World" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 190, 90 )
+position = Vector2( 259.374, 101.773 )
 texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( -400, -400, 800, 800 )
@@ -622,7 +622,7 @@ MAX_VELOCITY = 30
 
 [node name="AnimatedSprite" parent="Entities/YSort/BatBoss" index="0"]
 position = Vector2( 1.90735e-06, -8.26023 )
-frame = 4
+frame = 3
 
 [node name="Hurtbox" parent="Entities/YSort/BatBoss" index="3"]
 position = Vector2( 0, 1.5102 )
@@ -642,7 +642,9 @@ damage = 3
 [node name="Sprite2" parent="Entities/Pickups" instance=ExtResource( 10 )]
 position = Vector2( 355.353, 16.7735 )
 
-[node name="PlayerUI" parent="." instance=ExtResource( 8 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource( 8 )]
 margin_left = 4.36536
 margin_top = 2.77795
 margin_right = 181.365

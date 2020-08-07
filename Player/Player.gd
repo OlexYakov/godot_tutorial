@@ -67,24 +67,25 @@ func move_state(_delta):
 	elif Input.is_action_just_pressed("roll"):
 		state = ROLL
 		velocity = (velocity + roll_dir * MAX_SPEED * ROLL_FACTOR)/2
-	
 
 func attack_state(_delta):
 	animationState.travel("Attack")
 	move()
 	
-func roll_state(_delta):
-	animationState.travel("Roll")
-	move()
-
-func move():
-	velocity = move_and_slide(velocity)
-	
 func end_attack_state():
 	state = MOVE
 	
+func roll_state(_delta):
+	hurtbox.invincible = true
+	animationState.travel("Roll")
+	move()
+	
 func end_roll_state():
 	state = MOVE
+	hurtbox.invincible = false
+
+func move():
+	velocity = move_and_slide(velocity)
 	
 func _on_health_depleted():
 	queue_free()

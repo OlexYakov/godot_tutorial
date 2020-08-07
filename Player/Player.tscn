@@ -664,7 +664,7 @@ parameters/Run/blend_position = Vector2( 0, 1 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, -8 )
-rotation = 3.14159
+rotation = 1.5708
 
 [node name="SwordHitbox" parent="HitboxPivot" instance=ExtResource( 3 )]
 collision_layer = 8
@@ -684,7 +684,6 @@ iframeTime = 1.0
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource( 48 )
-[connection signal="area_entered" from="HitboxPivot/SwordHitbox" to="HitboxPivot/SwordHitbox" method="_on_SwordHitbox_area_entered"]
 
 [editable path="HitboxPivot/SwordHitbox"]
 
