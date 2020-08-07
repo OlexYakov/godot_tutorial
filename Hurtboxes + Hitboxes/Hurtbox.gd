@@ -21,6 +21,8 @@ func create_hurt_effect():
 	get_tree().current_scene.add_child(e)
 
 signal damage_taken
+signal invencibility_started
+signal invencibility_ended
 
 func _on_Hurtbox_area_entered(area):
 	if invincible : return
@@ -29,9 +31,11 @@ func _on_Hurtbox_area_entered(area):
 		create_hurt_effect()
 	if iframeTime > 0 :
 		invincible = true
+		emit_signal("invencibility_started")
 		set_deferred("monitoring",false)
 		iframeTimer.start(iframeTime)
 		
 func _on_IFrameTimer_timeout():
 	monitoring = true
 	invincible = false
+	emit_signal("invencibility_ended")

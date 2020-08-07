@@ -14,6 +14,7 @@ var velocity := Vector2.ZERO
 var roll_dir := Vector2.DOWN
 onready var animationTree = $AnimationTree
 onready var animationState = $AnimationTree.get("parameters/playback")
+onready var IFrameAnimationPlayer = $IFrameAnimation
 onready var swordDirection = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
 onready var stats = PlayerStats
@@ -28,6 +29,8 @@ func _ready():
 	swordDirection.hit_direction = Vector2.LEFT
 	stats.connect("health_depleted",self,"_on_health_depleted")
 	hurtbox.connect("damage_taken",self,"damage_taken_handler")
+	hurtbox.connect("invencibility_started",self,"play_flash_animation")
+	hurtbox.connect("invencibility_ended",self,"stop_flash_animation")
 	cameraRemoteTransform.remote_path = get_node(camera_node_path).get_path()
 
 func _process(_delta):
@@ -92,3 +95,8 @@ func _on_health_depleted():
 	
 func damage_taken_handler(damage):
 	PlayerStats.health -= damage
+	
+func play_flash_animation():
+	IFrameAnimationPlayer.play("Start")
+func stop_flash_animation():
+	IFrameAnimationPlayer.play("End")

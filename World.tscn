@@ -622,6 +622,7 @@ MAX_VELOCITY = 30
 
 [node name="AnimatedSprite" parent="Entities/YSort/BatBoss" index="0"]
 position = Vector2( 1.90735e-06, -8.26023 )
+frame = 4
 
 [node name="Hurtbox" parent="Entities/YSort/BatBoss" index="3"]
 position = Vector2( 0, 1.5102 )
