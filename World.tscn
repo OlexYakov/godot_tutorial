@@ -517,7 +517,7 @@ current = true
 position = Vector2( 314.742, 144.01 )
 camera_node_path = NodePath("../../Camera2D")
 
-[node name="AnimationTree" parent="Entities/Player" index="4"]
+[node name="AnimationTree" parent="Entities/Player" index="5"]
 parameters/playback = SubResource( 50 )
 
 [node name="Trees" type="YSort" parent="Entities"]

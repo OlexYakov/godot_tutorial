@@ -17,6 +17,7 @@ onready var playerDetector = $PlayerDetectionArea
 onready var sprite = $AnimatedSprite
 onready var softColisionArea = $SoftColisionArea
 onready var movementController = $MovementController
+onready var hurtSoundPlayer = $HurtSoundPlayer
 
 var state = states.IDLE setget set_state
 var knockback_dir := Vector2.ZERO
@@ -83,13 +84,20 @@ func chose_random_state(state_list : Array):
 func _on_Hurtbox_area_entered(area):
 	knockback_dir = area.hit_direction * 100
 	stats.health -= area.damage
-
+	hurtSoundPlayer.play()
+	
 signal died
 
 func _on_Stats_health_depleted():
 	emit_signal("died")
-	queue_free()
 	var deathEffect = DeathEffect.instance()
 	deathEffect.position = position
 	deathEffect.offset += Vector2(0,-20)
 	get_parent().add_child(deathEffect)
+	var deathSoundPlayer = AudioStreamPlayer.new()
+	var deathSoundWav = load("res://Music and Sounds/EnemyDie.wav")
+	deathSoundPlayer.stream = deathSoundWav
+	get_tree().current_scene.add_child(deathSoundPlayer)
+	deathSoundPlayer.play()
+	
+	queue_free()
