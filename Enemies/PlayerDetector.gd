@@ -8,5 +8,5 @@ func player_in_range():
 func _on_player_entered(body):
 	player = body
 
-func _on_player_exited(body):
+func _on_player_exited(_body):
 	player = null

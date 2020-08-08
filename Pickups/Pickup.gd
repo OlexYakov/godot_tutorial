@@ -1,6 +1,6 @@
 extends Sprite
 
-func apply_effect(player):
+func apply_effect(_player):
 	pass
 
 func _on_player_entered(body):
